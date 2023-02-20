@@ -4,19 +4,29 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	ceasar "goProject/utils"
+
 	"github.com/spf13/cobra"
 )
 
-// barkCmd represents the bark command
+// Encrypt your data with ceasar
 var encryptCMD = &cobra.Command{
 	Use:   "encrypt",
 	Short: "Encrypts your vlue",
 	Long:  `encrypts your shit.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cipher := CaesarCipher{shift: 3}
-		var item = cipher.Encrypt(args[0])
+		var item = ceasar.Encrypt(args[0], 3)
 		println("Encrypted  " + item)
-		var test = cipher.Decrypt(item)
+
+	},
+}
+
+var dencryptCMD = &cobra.Command{
+	Use:   "decrypt",
+	Short: "Dencrypts your vlue",
+	Long:  `Dencrypts your shit.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		var test = ceasar.Decrypt(args[0], 3)
 		println("Decrypted  " + test)
 
 	},
@@ -24,6 +34,7 @@ var encryptCMD = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(encryptCMD)
+	rootCmd.AddCommand(dencryptCMD)
 
 	// Here you will define your flags and configuration settings.
 
