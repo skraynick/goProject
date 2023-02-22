@@ -32,6 +32,15 @@ func getFrequencies(cipherText string) map[rune]int {
 	return freqs
 }
 
+func frequencyMap(cipherString string) map[rune]int {
+	freqMap := make(map[rune]int)
+
+	for _, char := range cipherString {
+		freqMap[char]++
+	}
+	return freqMap
+}
+
 func frequencyAnalysis(cipherText string) map[rune]int {
 	freq := make(map[rune]int)
 	for _, ch := range cipherText {
@@ -54,13 +63,25 @@ func DecryptWithFrequencyAnalysis(cipherText string) string {
 			maxFreq = count
 		}
 	}
+	//get mapping.. need to sort by highest. after determine if
+	//highest is actually e.. math. Difference should be 3, if not it is
+	//e. Round two... Use the nest highest value to attemp to decrypt.
+	freqs := frequencyMap(cipherText)
+	for k, v := range freqs {
+		println(string(k), v)
+	}
+	println()
 	//shift := (mostFrequent + 'E') % 26
-	//println(shift)
+	//
 	shift := (mostFrequent - 'E')
-
+	println(string(mostFrequent))
+	println(shift)
 	return Decrypt(cipherText, int(shift))
 }
 
+/*
+Not used at this point.
+*/
 func getSortedFrequencies(cipherText string) []string {
 	freqs := analyze(cipherText)
 	sorted := make([]string, 0, len(freqs))
