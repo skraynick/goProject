@@ -75,7 +75,8 @@ func DecryptWithFrequencyAnalysis(cipherText string) string {
 		//If a complete word is found, stop...
 		//match encrypted text to the plain text so far and start
 		//matching known letters to calculate shift.
-		//solve rest of the text.
+		//solve rest of the text.\
+		//https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
 
 		//https://ankurraina.medium.com/reading-a-simple-csv-in-go-36d7a269cecd
 	}
