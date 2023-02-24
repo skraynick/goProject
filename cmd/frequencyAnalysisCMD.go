@@ -15,7 +15,7 @@ var frequencyBreakCMD = &cobra.Command{
 	Short: "Frequency Analysis",
 	Long:  `Frequency Analysis.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		println("Crypto Text:   " + args[0])
+		//println("Crypto Text:   " + args[0])
 		//println("Decrypted:  " + Frequency.FrequencyAnalysisDecrypt(args[0]))
 		println("Decrypted:  " + Frequency.DecryptWithFrequencyAnalysis(args[0]))
 
