@@ -58,7 +58,7 @@ func frequencyAnalysis(cipherText string) map[rune]int {
 // 	return e.FindAllString(text, -1)
 // }
 
-func DecryptWithFrequencyAnalysis(cipherText string) string {
+func returnMostFrequentLetter(cipherText string) rune {
 	freq := frequencyAnalysis(cipherText)
 	var mostFrequent rune
 	maxFreq := 0
@@ -67,19 +67,51 @@ func DecryptWithFrequencyAnalysis(cipherText string) string {
 			mostFrequent = ch
 			maxFreq = count
 		}
-		//We can't assume we know the shift.
-		//use the most frequent.
-		//if not e as in 3... then decode using next letter
-		//look at output if not close run next shift.
-		//run against dictionary of maybe a thousand words
-		//If a complete word is found, stop...
-		//match encrypted text to the plain text so far and start
-		//matching known letters to calculate shift.
-		//solve rest of the text.\
-		//https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
 
-		//https://ankurraina.medium.com/reading-a-simple-csv-in-go-36d7a269cecd
 	}
+	return mostFrequent
+}
+
+func returnSkipValue(cipherText string) rune {
+	var skipValue rune
+	var mostFrequent rune = returnMostFrequentLetter(cipherText)
+	mostFrequentList := [13]rune{'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S', 'L', 'C', 'U', 'D', 'P'}
+
+	for k, v := range mostFrequentList {
+		println(mostFrequent+1, v, k)
+
+		if mostFrequent+1-v == 3 {
+			skipValue = 3
+			break
+		} else {
+			skipValue = mostFrequent + 1 - v
+
+		}
+	}
+
+	println(skipValue, 'E', mostFrequent)
+
+	return skipValue
+}
+
+func DecryptWithFrequencyAnalysis(cipherText string) string {
+
+	var shift int
+
+	shift = int(returnSkipValue(cipherText))
+	//We can't assume we know the shift.
+	//use the most frequent.
+	//if not e as in 3... then decode using next letter
+	//look at output if not close run next shift.
+	//run against dictionary of maybe a thousand words
+	//If a complete word is found, stop...
+	//match encrypted text to the plain text so far and start
+	//matching known letters to calculate shift.
+	//solve rest of the text.\
+	//https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
+
+	//https://ankurraina.medium.com/reading-a-simple-csv-in-go-36d7a269cecd
+
 	//get mapping.. need to sort by highest. after determine if
 	//highest is actually e.. math. Difference should be 3, if not it is
 	//e. Round two... Use the nest highest value to attemp to decrypt.
@@ -92,9 +124,6 @@ func DecryptWithFrequencyAnalysis(cipherText string) string {
 
 	// 	}
 	// }
-
-	shift := int(mostFrequent - 'E')
-	println(shift, mostFrequent, 'E')
 
 	return Decrypt(cipherText, int(shift))
 
