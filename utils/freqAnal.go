@@ -76,20 +76,25 @@ func returnSkipValue(cipherText string) rune {
 	var skipValue rune
 	var mostFrequent rune = returnMostFrequentLetter(cipherText)
 	mostFrequentList := [13]rune{'E', 'A', 'R', 'I', 'O', 'T', 'N', 'S', 'L', 'C', 'U', 'D', 'P'}
-
+	println("Most Frequent:", mostFrequent)
 	for k, v := range mostFrequentList {
-		println(mostFrequent+1, v, k)
+		println("LOOP:", mostFrequent-v)
+		switch mostFrequent - v {
+		case 3:
+			println("case3", mostFrequent-v, k, "v value:", v)
 
-		if mostFrequent+1-v == 3 {
 			skipValue = 3
 			break
-		} else {
+		default:
 			skipValue = mostFrequent + 1 - v
+			//"v value:",println("Default", mostFrequent+1-v, k, "v value:", v)
 
+			break
 		}
+
 	}
 
-	println(skipValue, 'E', mostFrequent)
+	//println(skipValue, 'E', mostFrequent)
 
 	return skipValue
 }
